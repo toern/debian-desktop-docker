@@ -1,0 +1,15 @@
+name: Docker Base Image CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Login to GitHub Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Build Base Docker image
+      run: docker build -f Dockerfile.base -t ghcr.io/${{ github.repository }}/debian-desktop-base:latest .
+    - name: Push Base Docker image to GitHub Container Registry
+      run: docker push ghcr.io/${{ github.repository }}/debian-desktop-base:latest
