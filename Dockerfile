@@ -1,6 +1,5 @@
-FROM debian-desktop-base:latest
+FROM ghcr.io/toern/debian-desktop-docker/debian-desktop-base:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:1
 ENV VNC_PASSWORD=myvncpassword
 
