@@ -3,7 +3,6 @@ FROM debian:bookworm
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:1
 
-# Update the package list and install LXDE, VNC server, curl, and other common tools
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     lxde \
@@ -16,11 +15,11 @@ RUN apt-get update && \
     ca-certificates \
     software-properties-common
 
-# Install Spotify Client
 RUN curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg && \
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && \
-    apt-get update && \
-    apt-get install -y spotify-client
+    apt-get update
+    
+RUN apt-get install -y spotify-client
     
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
