@@ -31,10 +31,10 @@ RUN mkdir -p /root/.vnc && \
     echo "$VNC_PASSWORD" | vncpasswd -f > /root/.vnc/passwd && \
     chmod 600 /root/.vnc/passwd
 
-RUN echo "#!/bin/bash\n\
-          xrdb $HOME/.Xresources\n\
-          startlxde &" > /root/.vnc/xstartup && \
-    chmod +x /root/.vnc/xstartup
+#RUN echo "#!/bin/bash\n\
+#          xrdb $HOME/.Xresources\n\
+#          startlxde &" > /root/.vnc/xstartup && \
+#    chmod +x /root/.vnc/xstartup
 
 EXPOSE 5901
 
