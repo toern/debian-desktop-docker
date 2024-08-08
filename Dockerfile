@@ -14,16 +14,15 @@ RUN apt-get update && \
     vim \
     gnupg \
     ca-certificates \
-    software-properties-common && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    software-properties-common
 
 # Install Spotify Client
-RUN curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --dearmor -o /usr/share/keyrings/spotify-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/spotify-archive-keyring.gpg] http://repository.spotify.com stable non-free" | tee /etc/apt/sources.list.d/spotify.list && \
+RUN curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg && \
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && \
     apt-get update && \
-    apt-get install -y spotify-client && \
-    apt-get clean && \
+    apt-get install -y spotify-client
+    
+RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Create a startup script for VNC server
