@@ -2,6 +2,8 @@ FROM debian:bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:1
+ENV VNC_PASSWORD=myvncpassword
+
 
 ENV USER=root
 
@@ -25,13 +27,15 @@ RUN curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | g
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Create a startup script for VNC server
-RUN mkdir -p ~/.vnc && \
-    echo "#!/bin/bash\n\
+RUN mkdir -p /root/.vnc && \
+    echo "$VNC_PASSWORD" | vncpasswd -f > /root/.vnc/passwd && \
+    chmod 600 /root/.vnc/passwd
+
+RUN echo "#!/bin/bash\n\
           xrdb $HOME/.Xresources\n\
-          startlxde &" > ~/.vnc/xstartup && \
-    chmod +x ~/.vnc/xstartup
+          startlxde &" > /root/.vnc/xstartup && \
+    chmod +x /root/.vnc/xstartup
 
 EXPOSE 5901
 
-CMD ["vncserver", "-geometry", "1280x800", "-depth", "24", "-xstartup", "/home/root/.vnc/xstartup"]
+CMD ["vncserver", "-geometry", "1280x800", "-depth", "24", "-SecurityTypes", "None"]
