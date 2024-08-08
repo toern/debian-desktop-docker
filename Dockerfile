@@ -38,4 +38,5 @@ RUN mkdir -p /root/.vnc && \
 
 EXPOSE 5901
 
-CMD ["vncserver", "-geometry", "1280x800", "-depth", "24", "-SecurityTypes", "None"]
+#CMD ["vncserver", "-geometry", "1280x800", "-depth", "24", "-SecurityTypes", "None"]
+CMD ["sh", "-c", "vncserver :1 -geometry 1280x800 -depth 24 -fg"]
