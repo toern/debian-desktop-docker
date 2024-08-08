@@ -10,6 +10,7 @@ RUN apt-get update && \
     lxde \
     tigervnc-standalone-server \
     tigervnc-common \
+    tigervnc-tools \
     curl \
     wget \
     vim \
