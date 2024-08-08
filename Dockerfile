@@ -12,8 +12,8 @@ EXPOSE 5901
 ENV RESOLUTION=1920x1080
 RUN touch /root/.Xauthority
 
-COPY ./script.sh /
-RUN chmod +x /script.sh
+COPY ./start.sh /
+RUN chmod +x /start.sh
 
 #RUN echo "#!/bin/bash\n\
 #          xrdb $HOME/.Xresources\n\
@@ -21,6 +21,6 @@ RUN chmod +x /script.sh
 #    chmod +x /root/.vnc/xstartup
 
 
-ENTRYPOINT ["/script.sh"]
+ENTRYPOINT ["/start.sh"]
 #CMD ["vncserver", "-geometry", "1280x800", "-depth", "24", "-SecurityTypes", "None"]
 #CMD ["sh", "-c", "vncserver :1 -geometry 1280x800 -depth 24 -fg"]
